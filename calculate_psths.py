@@ -22,29 +22,32 @@ def download_data(url, filename):
 
 download_data(url=url, filename=filename)
 
-# %% Load Data
-# Exercise: Make a `load_data(filename)` function, returning the `dset` variable.
-
-
 
 # %% Extract Experiment-Level Data
 # Exercise: Make an `extract_trials(filename)` function, returning the `trials` variable.
+def extract_trials(filename):
+    import xarray as xr
 
-import xarray as xr
+    dset = xr.load_dataset(filename)
+    trials = dset[['contrast_left', 'contrast_right', 'stim_onset']].to_dataframe()
+    trials
 
-dset = xr.load_dataset(filename)
-trials = dset[['contrast_left', 'contrast_right', 'stim_onset']].to_dataframe()
-trials
+    return trials
+
+extract_trials(filename)
 
 # %% Extract Spike-Time Data
 # Exercise: Make an `extract_spikes(filename)` function, returning the `spikes` variable.
+def extract_spikes(filename):
+    import xarray as xr
 
-import xarray as xr
+    dset = xr.load_dataset(filename)
+    spikes = dset[['spike_trial', 'spike_cell', 'spike_time']].to_dataframe()
+    spikes
 
-dset = xr.load_dataset(filename)
-spikes = dset[['spike_trial', 'spike_cell', 'spike_time']].to_dataframe()
-spikes
+    return spikes
 
+extract_spikes(filename)
 
 # %% Extract Cell-Level Data
 # Exercise: Make an `extract_cells(filename)` function, returning the `cells` variable.
